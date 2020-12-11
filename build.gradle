@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'org.example'
@@ -7,6 +8,7 @@ version '1.0'
 
 project.ext.lwjglVersion = "3.2.3"
 project.ext.lwjglNatives = "natives-linux"
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -95,4 +97,14 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
+}
+
+application {
+    mainClassName 'com.dannnyxz.Application'
+}
+
+startScripts {
+    doLast {
+        windowsScript.text = windowsScript.text.replaceAll('set CLASSPATH=.*', 'set CLASSPATH=.;%APP_HOME%/lib/*')
+    }
 }
